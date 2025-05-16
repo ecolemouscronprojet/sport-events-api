@@ -1,10 +1,11 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dto/user.dto';
 import { UserService } from './user.service';
-import { instanceToInstance, plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { User } from 'src/database/models/user.entity';
+import { RolesGuard } from 'src/auth/roles.guard';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
 
     constructor(
@@ -24,5 +25,12 @@ export class UserController {
         const user = plainToInstance(User, createUserDto)
 
       return this.userService.save(user);
+    }
+
+
+    @UseGuards(RolesGuard('organizer'))
+    @Get()
+    async getAll(): Promise<User[]> {
+        return this.userService.getAll();
     }
 }
