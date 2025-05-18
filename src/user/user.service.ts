@@ -15,11 +15,9 @@ export class UserService {
         return this.userRepository.save(user)
     }
 
-
     async find(userId: number): Promise<User|null> {
         return this.userRepository.findOneBy({id: userId});
     }
-
 
     async getAll(): Promise<User[]> {
         return this.userRepository.find();
