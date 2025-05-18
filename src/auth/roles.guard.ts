@@ -28,12 +28,10 @@ export function RolesGuard(...allowedRoles: string[]) {
         });
 
         request['user'] = payload;
-        console.log('SAMUELLLO', payload);
-        console.log('SAMUELLLO', allowedRoles);
 
         const userRole = payload.role;
 
-        if (!allowedRoles.includes(userRole)) {
+        if (allowedRoles.length > 0 && !allowedRoles.includes(userRole)) {
           throw new ForbiddenException(`Access denied for role: ${userRole}`);
         }
 
