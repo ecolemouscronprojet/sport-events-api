@@ -27,7 +27,7 @@ export class UserController {
       return this.userService.save(user);
     }
 
-    @UseGuards(RolesGuard('organizer'))
+    @UseGuards(RolesGuard())
     @Get()
     async getAll(): Promise<User[]> {
         return this.userService.getAll();

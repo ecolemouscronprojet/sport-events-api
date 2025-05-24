@@ -13,7 +13,7 @@ export class EventController {
         private readonly eventService: EventService
     ) { }
 
-    @UseGuards(RolesGuard("organizer"))
+    @UseGuards(RolesGuard("organiser"))
     @Post()
     async create(@Body() createEventDto: CreateEventDto): Promise<Event> {
         const event = plainToInstance(Event, createEventDto);
